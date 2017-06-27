@@ -87,7 +87,7 @@ class DefinitionScreen extends React.Component {
     const { params } = this.props.navigation.state;
     return (
       <View style={styles.definition}>
-        <Text>{params.item.definition || '(no definition)'}</Text>
+        <Text>{(params.item.definition || '(no definition)').replace(/<[^>]+>/ig,'')}</Text>
       </View>
     );
   }
