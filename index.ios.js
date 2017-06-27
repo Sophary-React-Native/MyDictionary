@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
+import { WebView } from 'react-native';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
@@ -17,7 +18,7 @@ const data = require('./src/chunat-dictionary-lite.json');
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: 'My Dictionary',
+    title: 'វចនានុក្រមខ្មែរ',
   };
 
   constructor() {
@@ -80,7 +81,7 @@ class HomeScreen extends React.Component {
 class DefinitionScreen extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
-    title: `Definition of ${navigation.state.params.item.word}`,
+    title: `${navigation.state.params.item.word}`,
   });
 
   render() {
