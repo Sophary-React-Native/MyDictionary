@@ -13,27 +13,7 @@ import { StackNavigator } from 'react-navigation';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
-const data = [
-        {key: 'a', definition: "Hello! It's me"},
-        {key: 'a,a', definition: "OK!"},
-        {key: 'a,b,c'},
-        {key: 'a.b.c'},
-        {key: 'a.m'},
-        {key: 'a/c'},
-        {key: 'abach'},
-        {key: 'aback'},
-        {key: 'abactor'},
-        {key: 'A'},
-        {key: 'A,a'},
-        {key: 'Apple'},
-        {key: 'B'},
-        {key: 'B,b'},
-        {key: 'back'},
-        {key: 'bone'},
-        {key: 'banana'},
-        {key: 'baby'},
-        {key: 'boy'},
-      ]
+const data = require('./src/chunat-dictionary-lite.json');
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -42,7 +22,6 @@ class HomeScreen extends React.Component {
 
   constructor() {
     super();
-
     this.state = {
       dataSource: ds.cloneWithRows(data),
       searchTerm: ''
@@ -56,7 +35,7 @@ class HomeScreen extends React.Component {
           onPress={() => navigate('Definition', { item: rowData})}
         >
           <View style={styles.item}>
-            <Text>{rowData.key}</Text>
+            <Text>{rowData.word}</Text>
           </View>
         </TouchableOpacity>
       </ScrollView>
@@ -71,7 +50,7 @@ class HomeScreen extends React.Component {
   render() {
     const result = this.state.searchTerm
       ? data.filter(d => {
-          const itemData = d.key.toUpperCase()
+          const itemData = d.word.toUpperCase()
           const textData = this.state.searchTerm.toUpperCase()
           return itemData.indexOf(textData) > -1
         })
@@ -101,14 +80,14 @@ class HomeScreen extends React.Component {
 class DefinitionScreen extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
-    title: `Definition of ${navigation.state.params.item.key}`,
+    title: `Definition of ${navigation.state.params.item.word}`,
   });
 
   render() {
     const { params } = this.props.navigation.state;
     return (
       <View style={styles.definition}>
-        <Text>{params.item.definition}</Text>
+        <Text>{params.item.definition || '(no definition)'}</Text>
       </View>
     );
   }
