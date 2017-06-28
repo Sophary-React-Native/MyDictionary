@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
-import { WebView } from 'react-native';
+import HTMLView from 'react-native-htmlview';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
@@ -83,12 +83,15 @@ class DefinitionScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: `${navigation.state.params.item.word}`,
   });
-
   render() {
-    const { params } = this.props.navigation.state;
+    const { params } = this.props.navigation.state
+    // const htmlContent = `<h1>hello</h1>\nHi<a href='www.google.com'><b><u>Google</u></b></a>`;
+    const htmlContent = `${(params.item.definition || '(no definition)').replace(/<[^>]+>|\/a|\\n/ig,'')}`
     return (
       <View style={styles.definition}>
-        <Text>{(params.item.definition || '(no definition)').replace(/<[^>]+>|\/a/ig,'')}</Text>
+        <HTMLView
+          value={htmlContent}
+        />
       </View>
     );
   }
