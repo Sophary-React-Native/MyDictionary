@@ -37,12 +37,10 @@ class definitionScreen extends React.Component {
     // const htmlContent = `<h1>hello</h1>\nHi<a href='www.google.com'><b><u>Google</u></b></a>`;
     const htmlContent = `${(params.item.definition || '(no definition)').replace(/<[^>]+>|\/a|\\n/ig,'')}`;
 
-    if(this.state.wikiKey <= 0 )
+    if(this.state.wikiKey > 0 )
     {
-      this.state.wikiDefinition = 'ពុំមាននិយមន័យពីគេហទំព័រវីគីភីឌៀឡើយ'
-    } else {
       this.setState({wikiDefinition: Object.values(this.state.wikiInfo)[0].revisions[0]['*']})
-    }
+    } 
 
 
     return (
